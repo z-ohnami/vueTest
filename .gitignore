@@ -6,3 +6,6 @@
 #
 # Pods/
 
+# Other files and folders
+.DS_Store
+.xxx
