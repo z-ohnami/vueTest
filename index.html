@@ -1,19 +1,43 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<title></title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
-<script type="x-template" id="tmpl1">
-<ul>
-<li>aaa</li>
-<li>bbb</li>
-</ul>
-</script>
-
+    <script type="text/x-template" id="form-weather">
+        <button v-on="click: getWeather">push</button>
+    </script>
+    <script type="text/x-template" id="form-sub">
+        <p>これは２番目の画面です</p>
+    </script>
 </head>
 <body>
 
-<div id="demo">
+<div id="demo" class="container">
+    <div class="row">
+        <h1>{{title | uppercase}}</h1>
+    </div>
+    <div class="row">
+        <div class="col-xs-4">
+            <li
+                v-repeat="todos"
+                v-on="click: done = !done"
+                class="{{done ? 'done' : ''}}">
+                {{content}}
+            </li>
+        </div>
+        <div id="app" class="col-xs-8">
+            <div v-view="currentView"></div>
+<!--             <button v-on="click: change">push</button> -->
+        </div>
+    </div>
+</div>
+
+<!-- <div id="demo">
     <h1>{{title | uppercase}}</h1>
     <ul>
         <li
@@ -28,8 +52,10 @@
 <div id="app">
     <div v-view="currentView"></div>
     <button v-on="click: change">push</button>
-</div>
+</div> -->
 
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
 <script src="js/vue.js"></script>
 <script src="js/app.js"></script>
 
