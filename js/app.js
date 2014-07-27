@@ -1,18 +1,20 @@
-var MyComponent = Vue.extend({
-    template: '#form-weather'
-});
 
-Vue.component('form-weather', MyComponent);
+Vue.component('form-weather',{
+    template: '#form-weather',
+    data: {
+        userId:''
+    },
+    methods: {
+        requestAPI:function() {
+            console.log(this.userId);
+            demo.requestAPI();
+        }
+    }
+});
 
 Vue.component('form-sub',{
     template: '#form-sub'
 });
-
-function API(api) {
-
-    console.log('hoge' + api);
-
-};
 
 var demo = new Vue({
     el: 'body',
@@ -20,6 +22,7 @@ var demo = new Vue({
         title: 'Title',
         currentTargetNo: 1,
         currentView: 'form-weather',
+        isAPISuccess: false,
         targetList: [
             {
                 targetNo: 1,
@@ -78,7 +81,15 @@ var demo = new Vue({
         changeTarget: function (targetNo) {
             this.currentTargetNo = targetNo;
         },
-        getWeather: function (e) {
+        requestAPI: function (e) {
+            console.log('hogehoge');
+            this.isAPISuccess = true;
+            var that = this;
+            setTimeout(function() {
+                console.log('end');
+                that.isAPISuccess = false;
+            },1000);
+          return;
           $.ajax({
 //            url: base + '?' + param.join('&')
             url: 'http://api.openweathermap.org/data/2.5/weather?q=Tokyo,jp'

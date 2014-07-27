@@ -9,7 +9,11 @@
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
 
     <script type="text/x-template" id="form-weather">
-        <button v-on="click: getWeather">push</button>
+        <div class="form-group">
+            <label for="userIdText">UserId</label>
+            <input id="userIdText" type="text" class="form-control" placeholder="Username" v-model="userId">
+        </div>
+        <button class="btn btn-success text-right" v-on="click: requestAPI">submit</button>
     </script>
 
     <script type="text/x-template" id="form-sub">
@@ -18,7 +22,6 @@
 
 </head>
 <body>
-
 <div id="demo" class="container">
     <div class="row title">
         <h1>{{title | uppercase}} - {{currentTargetName}} - </h1>
@@ -50,7 +53,17 @@
         <div id="app" class="col-xs-8 mainView">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h5 class="panel-title">controll</h5></div>
-                <div class="panel-body" v-view="currentView"></div>
+                <div class="panel-body">
+                    <div v-if="isAPISuccess" v-animation class="alert alert-success animated" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        API successed 
+                    </div>
+
+                    <div v-view="currentView"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -70,6 +83,42 @@
     .selectMenuList {
         list-style:none;
         cursor:pointer;
+    }
+
+    .animated {
+        display: inline-block;
+    }
+
+    .animated.v-enter {
+        animation: fadein .5s;
+    }
+
+    .animated.v-leave {
+        animation: fadeout .5s;
+    }
+
+    @keyframes fadein {
+        0% {
+            transform: scale(0);
+        }
+        50% {
+            transform: scale(1.5);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeout {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.5);
+        }
+        100% {
+            transform: scale(0);
+        }
     }
 
 /*    .title {
