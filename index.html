@@ -11,48 +11,51 @@
     <script type="text/x-template" id="form-weather">
         <button v-on="click: getWeather">push</button>
     </script>
+
     <script type="text/x-template" id="form-sub">
         <p>これは２番目の画面です</p>
     </script>
+
 </head>
 <body>
 
 <div id="demo" class="container">
-    <div class="row">
-        <h1>{{title | uppercase}}</h1>
+    <div class="row title">
+        <h1>{{title | uppercase}} - {{currentTargetName}} - </h1>
     </div>
-    <div class="row">
-        <div class="col-xs-4">
-            <li
-                v-repeat="todos"
-                v-on="click: done = !done"
-                class="{{done ? 'done' : ''}}">
-                {{content}}
-            </li>
+
+    <div class="row targetSelection panel panel-primary">
+        <div class="panel-heading"><h5 class="panel-title">set target</h5></div>
+        <div class="panel-body">
+            <label class="radio-inline" v-repeat="targetList" v-on="click: changeTarget(targetNo)">
+              <input type="radio" name="inlineRadioOptions" id="target{{targetNo}}" value="{{targetNo}}" v-model="currentTargetNo">{{targetName}}
+            </label>
         </div>
-        <div id="app" class="col-xs-8">
-            <div v-view="currentView"></div>
-<!--             <button v-on="click: change">push</button> -->
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4 menu">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h5 class="panel-title">menu</h5></div>
+                <div class="panel-body">
+                    <li
+                        v-repeat="todos"
+                        v-on="click: changeView(no)"
+                        class="{{done ? 'done' : ''}} selectMenuList">
+                        {{content}}
+                    </li>
+                </div>
+            </div>
+        </div>
+        <div id="app" class="col-xs-8 mainView">
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h5 class="panel-title">controll</h5></div>
+                <div class="panel-body" v-view="currentView"></div>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- <div id="demo">
-    <h1>{{title | uppercase}}</h1>
-    <ul>
-        <li
-            v-repeat="todos"
-            v-on="click: done = !done"
-            class="{{done ? 'done' : ''}}">
-            {{content}}
-        </li>
-    </ul>
-</div>
-
-<div id="app">
-    <div v-view="currentView"></div>
-    <button v-on="click: change">push</button>
-</div> -->
 
 <script src="js/jquery-1.11.1.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -62,7 +65,24 @@
 <style type="text/css">
 	.done {
 		color:#FF0000;
+        background-color:#9dffff;
 	}
+    .selectMenuList {
+        list-style:none;
+        cursor:pointer;
+    }
+
+/*    .title {
+        background-color:#006600;
+        color:#000000;
+    }
+    .menu {
+        background-color:#003300;
+        color:#000000;
+    }
+    .mainView {
+        background-color:#00FF00;
+    }*/
 </style>
 
 </body>
